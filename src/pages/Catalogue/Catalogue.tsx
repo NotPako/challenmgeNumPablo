@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {bringCountries} from '../../services/apiCalls'
 import CountryCard from '../../components/CountryCard/CountryCard';
 import './Catalogue.css';
+import FilterBar from '../../components/FilterBar/FilterBar';
 
 
 interface Country {
@@ -40,14 +41,31 @@ const Catalogue: React.FC = ()  =>{
       }
     }, [countries]);
 
+    const listProd = (input: string) => {
+      const filteredData = countries.filter((el) => {
+        if (input === "") {
+          return true;
+        } else {
+          return el.name.common.toLowerCase().includes(input.toLowerCase());
+        }
+      });
+    
+      setCountries(filteredData);
+    };
+
   return (
     <div style = {{padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
+    <FilterBar listProd={listProd} setProducts={setCountries} />
        <div className="countryGridDesign">
-        {countries.map((country, index) => (
+        {countries.length == 0 ? (
+          <div className="placeholder">No products found</div>
+        ) :
+        (countries.map((country, index) => (
             <div key={index}>
             <CountryCard value={country}/>
             </div>
-        ))}
+        )))
+      }
     </div>
       
     </div>
