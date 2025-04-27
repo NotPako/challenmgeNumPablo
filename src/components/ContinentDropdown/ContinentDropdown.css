@@ -1,0 +1,20 @@
+.dropdownDesign {
+    width: 8rem;
+    padding: 12px 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 2rem;
+  }
+  
+  .dropdownDesign::placeholder {
+    color: #999;
+  }
+  
+  .dropdownDesign:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  }
+  
