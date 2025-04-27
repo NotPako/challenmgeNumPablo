@@ -2,20 +2,22 @@ import React from 'react'
 import { useState, ChangeEvent, useEffect} from 'react';
 import './FilterBar.css';    
 import ContinentDropdown from '../ContinentDropdown/ContinentDropdown';
+import { useCountries } from '../../Providers/CountriesProvider';
 
 
 
 interface FilterBarProps {
     listProd: (searchTerm: string) => void;
     listProdContinent: (searchTerm: string) => void;
-    setProducts: (products: any[]) => void; 
+    setCountries: (countries: any[]) => void; 
   }
   
 
-export default function FilterBar({listProd, setProducts, listProdContinent}: FilterBarProps) {
+export default function FilterBar({listProd, setCountries, listProdContinent}: FilterBarProps) {
 
     const [search, setSearch] = useState<string>('');
-    const [selectedContinent, setSelectedContinent] = useState<string>(''); 
+    const [selectedContinent, setSelectedContinent] = useState<string>('');
+    const {countries} = useCountries(); 
 
     
     const inputSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +37,7 @@ export default function FilterBar({listProd, setProducts, listProdContinent}: Fi
     
           return () => clearTimeout(bring);
         } else {
-          setProducts([]);
+          setCountries(countries);
         }
       }, [search]);
 
@@ -47,7 +49,7 @@ export default function FilterBar({listProd, setProducts, listProdContinent}: Fi
     
           return () => clearTimeout(bring);
         } else {
-            setProducts([]);
+            setCountries(countries);
         }
       }, [selectedContinent]);
       

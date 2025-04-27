@@ -31,3 +31,18 @@
     cursor: pointer;
     margin-left: 0px;
   }
+
+
+.countryInfoDesign.removing {
+    animation: fadeOut 0.3s ease forwards; 
+  }
+  
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  

@@ -2,8 +2,8 @@ import React from 'react'
 import {useState, useEffect} from 'react';
 import {bringCountries} from '../../services/apiCalls'
 import CountryCard from '../../components/CountryCard/CountryCard';
-import './Catalogue.css';
 import FilterBar from '../../components/FilterBar/FilterBar';
+import './Favourites.css';
 
 
 interface Country {
@@ -26,9 +26,7 @@ interface Country {
     region: string;
     continents: string[];
 }
-
-const Catalogue: React.FC = ()  =>{
-
+export default function Favourites() {
     const [countries, setCountries] = useState<Country[]>([]);
     const [allCountries, setAllCountries] = useState<Country[]>([]); 
 
@@ -87,5 +85,3 @@ const Catalogue: React.FC = ()  =>{
     </div>
   )
 }
-
-export default Catalogue;

@@ -2,17 +2,32 @@ import React, { createContext, useState, ReactNode } from 'react';
 
 
 interface FavoriteCountry {
-  name: string;
-  flag: string;
-  population: number;
-  region: string;
+    value: {
+        name: {
+          common: string;
+          official: string;
+          nativeName?: {
+            [key: string]: {
+              official: string;
+              common: string;
+            };
+          };
+        };
+        flags: {
+          png: string;
+          svg: string;
+          alt?: string;
+        };
+        population: number;
+        region: string;
+      };
 }
 
 interface FavoritesContextType {
   favorites: FavoriteCountry[];
   addFavorite: (country: FavoriteCountry) => void;
   removeFavorite: (countryName: string) => void;
-  isFavorite: (countryName: string) => boolean;
+  isFavoriteAll: (countryName: string) => boolean;
 }
 
 
@@ -31,15 +46,15 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
   };
 
   const removeFavorite = (countryName: string) => {
-    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.name !== countryName));
+    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.value.name.common !== countryName));
   };
 
-  const isFavorite = (countryName: string) => {
-    return favorites.some((fav) => fav.name === countryName);
+  const isFavoriteAll = (countryName: string) => {
+    return favorites.some((fav) => fav.value.name.common === countryName);
   };
 
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavoriteAll }}>
       {children}
     </FavoritesContext.Provider>
   );
