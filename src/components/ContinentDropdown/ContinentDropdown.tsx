@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+
 import './ContinentDropdown.css'; 
 
-const ContinentDropdown: React.FC = () => {
-  const [selectedContinent, setSelectedContinent] = useState<string>('');
+interface ContinentDropdownProps {
+    selectedContinent: string;
+    handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  }
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedContinent(e.target.value);
-  };
+const ContinentDropdown: React.FC<ContinentDropdownProps> = ({selectedContinent, handleSelectChange}) => {
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '10px', width: '100%', marginLeft: '2rem' }}>
+        <label>
+            Select by region:
+        </label>
       <select 
         id="continent" 
         value={selectedContinent} 
@@ -18,7 +21,7 @@ const ContinentDropdown: React.FC = () => {
       >
         <option value="">All</option>
         <option value="Africa">Africa</option>
-        <option value="America">America</option>
+        <option value="Americas">Americas</option>
         <option value="Antarctica">Antarctica</option>
         <option value="Asia">Asia</option>
         <option value="Europe">Europe</option>

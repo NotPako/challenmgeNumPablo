@@ -24,18 +24,22 @@ interface Country {
     };
     population: number;
     region: string;
+    continents: string[];
 }
 
 const Catalogue: React.FC = ()  =>{
 
     const [countries, setCountries] = useState<Country[]>([]);
+    const [allCountries, setAllCountries] = useState<Country[]>([]); // Estado para almacenar todos los países
+
+
 
     useEffect(() => {
       if (countries.length === 0) {
         bringCountries()
           .then((res) => {
             setCountries(res.data);
-            console.log(res.data);
+            setAllCountries(res.data);
           })
           .catch((error) => console.log(error));
       }
@@ -53,9 +57,21 @@ const Catalogue: React.FC = ()  =>{
       setCountries(filteredData);
     };
 
+    const listProdContinent = (input: string) => {
+      const filteredData = allCountries.filter((el) => {
+        if (input === "") {
+          return true;
+        } else {
+          return el.region.toLowerCase().includes(input.toLowerCase());  
+        }
+      });
+    
+      setCountries(filteredData);
+    };
+
   return (
     <div style = {{padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
-    <FilterBar listProd={listProd} setProducts={setCountries} />
+    <FilterBar listProd={listProd} setProducts={setCountries} listProdContinent={listProdContinent}/>
        <div className="countryGridDesign">
         {countries.length == 0 ? (
           <div className="placeholder">No products found</div>
