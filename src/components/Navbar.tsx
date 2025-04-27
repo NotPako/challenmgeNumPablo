@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const Navbar: React.FC = () => {
   return (
     <nav style={styles.nav}>
-      <h2 style={styles.logo}>MyApp</h2>
+      <h2 style={styles.logo}>Globify</h2>
       <div>
-        <Link to="/" style={styles.link}>Home</Link>
+        <Link to="/" style={styles.link}>My Favourites</Link>
       </div>
     </nav>
   );
@@ -29,7 +29,7 @@ const styles = {
   link: {
     color: 'white',
     textDecoration: 'none',
-    marginLeft: '15px'
+    marginRight: '10rem'
   } as React.CSSProperties,
   logo: {
     margin: 0
