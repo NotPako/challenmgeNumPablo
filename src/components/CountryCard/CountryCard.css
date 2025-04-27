@@ -1,0 +1,17 @@
+.countryInfoDesign {
+    height: 15rem;
+    width: 15em;
+    margin: 2em;
+    margin-bottom:4rem;
+    font-family: sans-serif;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .countryInfoDesign:hover {
+    cursor: pointer;    
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
