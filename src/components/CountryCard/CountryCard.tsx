@@ -1,7 +1,7 @@
 import React from 'react';
 import './CountryCard.css';
 import { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaTrashAlt } from 'react-icons/fa';
 
 
 interface CountryCardProps {
@@ -49,13 +49,18 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
         <div>Population: {value.population.toLocaleString()}</div>
         <div>Region: {value.region}</div>
       </div>
-
-      {/* Icono de estrella */}
-      <div 
-        className={`favoriteIcon ${isFavorite ? 'active' : ''}`} 
-        onClick={toggleFavorite}
-      >
-        <FaStar size={24} color={isFavorite ? 'gold' : 'gray'} />
+      <div className='iconContainer'>
+        <div 
+          className={`favoriteIcon ${isFavorite ? 'active' : ''}`} 
+          onClick={toggleFavorite}
+        >
+          <FaStar size={24} color={isFavorite ? 'gold' : 'gray'} />
+        </div>
+        <div 
+          className='deleteIcon' 
+        >
+          <FaTrashAlt size={24} color='red' />
+        </div>
       </div>
     </div>
   );
