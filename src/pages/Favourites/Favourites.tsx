@@ -68,6 +68,11 @@ export default function Favourites() {
     };
 
   return (
+    <>
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}> 
+        <h1>My Favorites</h1>
+        <p>These are the countries you marked as favorites</p>
+      </div>
     <div style = {{padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
     <FilterBar listProd={listProd} setCountries={setCountries} listProdContinent={listProdContinent}/>
        <div className="countryGridDesign">
@@ -83,5 +88,6 @@ export default function Favourites() {
     </div>
       
     </div>
+    </>
   )
 }
