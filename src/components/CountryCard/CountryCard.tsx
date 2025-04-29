@@ -35,10 +35,8 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
-  const [isRemoving, setIsRemoving] = useState<boolean>(false);
 
   const handleRemoveCountry = () => {
-  setIsRemoving(true); 
   setTimeout(() => {
     removeCountry(value.name.common); 
   }, 300); 
@@ -53,7 +51,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
   };
 
   return (
-    <div className={`countryInfoDesign ${isRemoving ? 'removing' : ''}`}>
+    <div className={`countryInfoDesign`}>
     <h4>{value.name.common}</h4>
     <img
       className="img-thumbnail"
