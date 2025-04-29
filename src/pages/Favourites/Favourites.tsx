@@ -1,8 +1,6 @@
-import React from 'react'
 import {useState, useEffect} from 'react';
-import {bringCountries} from '../../services/apiCalls'
 import CountryCard from '../../components/CountryCard/CountryCard';
-import FilterBar from '../../components/FilterBar/FilterBar';
+import { useFavorites } from '../../Providers/FavoritesProvider';
 import './Favourites.css';
 
 
@@ -24,48 +22,18 @@ interface Country {
     };
     population: number;
     region: string;
-    continents: string[];
+    isFavorite?: boolean;
 }
 export default function Favourites() {
     const [countries, setCountries] = useState<Country[]>([]);
-    const [allCountries, setAllCountries] = useState<Country[]>([]); 
-
-
+    const { favorites } = useFavorites();
 
     useEffect(() => {
-      if (countries.length === 0) {
-        bringCountries()
-          .then((res) => {
-            setCountries(res.data);
-            setAllCountries(res.data);
-          })
-          .catch((error) => console.log(error));
-      }
-    }, []);
+      setCountries(favorites);
+    }, [favorites]);
 
-    const listProd = (input: string) => {
-      const filteredData = countries.filter((el) => {
-        if (input === "") {
-          return true;
-        } else {
-          return el.name.common.toLowerCase().includes(input.toLowerCase());
-        }
-      });
-    
-      setCountries(filteredData);
-    };
 
-    const listProdContinent = (input: string) => {
-      const filteredData = allCountries.filter((el) => {
-        if (input === "") {
-          return true;
-        } else {
-          return el.region.toLowerCase().includes(input.toLowerCase());  
-        }
-      });
-    
-      setCountries(filteredData);
-    };
+
 
   return (
     <>
@@ -74,10 +42,9 @@ export default function Favourites() {
         <p>These are the countries you marked as favorites</p>
       </div>
     <div style = {{padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
-    <FilterBar listProd={listProd} setCountries={setCountries} listProdContinent={listProdContinent}/>
        <div className="countryGridDesign">
         {countries.length == 0 ? (
-          <div className="placeholder">No products found</div>
+          <div className="placeholder">No favorites found</div>
         ) :
         (countries.map((country, index) => (
             <div key={index}>

@@ -1,31 +1,22 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useContext } from 'react';
 
 
-interface FavoriteCountry {
-    value: {
-        name: {
-          common: string;
-          official: string;
-          nativeName?: {
-            [key: string]: {
-              official: string;
-              common: string;
-            };
-          };
-        };
-        flags: {
-          png: string;
-          svg: string;
-          alt?: string;
-        };
-        population: number;
-        region: string;
-      };
+interface Country {
+  name: {
+    common: string;
+    official: string;
+  };
+  flags: {
+    png: string;
+    svg: string;
+  };
+  population: number;
+  region: string;
 }
 
 interface FavoritesContextType {
-  favorites: FavoriteCountry[];
-  addFavorite: (country: FavoriteCountry) => void;
+  favorites: Country[];
+  addFavorite: (country: Country) => void;
   removeFavorite: (countryName: string) => void;
   isFavoriteAll: (countryName: string) => boolean;
 }
@@ -39,18 +30,18 @@ interface FavoritesProviderProps {
 }
 
 export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }) => {
-  const [favorites, setFavorites] = useState<FavoriteCountry[]>([]);
+  const [favorites, setFavorites] = useState<Country[]>([]);
 
-  const addFavorite = (country: FavoriteCountry) => {
+  const addFavorite = (country: Country) => {
     setFavorites((prevFavorites) => [...prevFavorites, country]);
   };
 
   const removeFavorite = (countryName: string) => {
-    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.value.name.common !== countryName));
+    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.name.common !== countryName));
   };
 
   const isFavoriteAll = (countryName: string) => {
-    return favorites.some((fav) => fav.value.name.common === countryName);
+    return favorites.some((fav) => fav.name.common === countryName);
   };
 
   return (
@@ -59,3 +50,13 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
     </FavoritesContext.Provider>
   );
 };
+
+
+export const useFavorites = () => {
+  const context = useContext(FavoritesContext);
+  if (!context) {
+    throw new Error('useFavorites must be used within a FavoritesProvider');
+  }
+  return context;
+};
+

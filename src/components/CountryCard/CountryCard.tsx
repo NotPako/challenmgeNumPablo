@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import './CountryCard.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaStar, FaTrashAlt } from 'react-icons/fa';
 import { FavoritesContext } from '../../Providers/FavoritesProvider';
 import { useCountries } from '../../Providers/CountriesProvider';
@@ -25,6 +25,7 @@ interface CountryCardProps {
     };
     population: number;
     region: string;
+    isFavorite?: boolean;
   };
 }
 
@@ -33,7 +34,24 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
 
   const {removeCountry} = useCountries();
 
+  const context = useContext(FavoritesContext);
+
+  if (!context) {
+    return <div>Favorites context not found.</div>; // O lanzar un error si prefieres
+  }
+
+  const { addFavorite, removeFavorite } = context;
+  
+
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (value.isFavorite) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  })
 
 
   const handleRemoveCountry = () => {
@@ -45,7 +63,11 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
 
   const toggleFavorite = () => {
     if(!isFavorite){
-      //addFavorite(null);
+      addFavorite(value);
+      value.isFavorite = true;
+    } else {
+      removeFavorite(value.name.common);
+      value.isFavorite = false;
     }
     setIsFavorite((prev) => !prev);  
   };
@@ -72,7 +94,12 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
         <FaStar size={24} color={isFavorite ? 'gold' : 'gray'} />
       </div>
       <div className='deleteIcon'>
-        <FaTrashAlt size={24} color='red' onClick={() => handleRemoveCountry()} />
+        {isFavorite ? (
+          <></>
+        ) : (
+          <FaTrashAlt size={24} color='red' onClick={() => handleRemoveCountry()} />
+        )}
+        
       </div>
     </div>
   </div>

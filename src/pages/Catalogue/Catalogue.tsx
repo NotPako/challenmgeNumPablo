@@ -25,6 +25,7 @@ interface Country {
     };
     population: number;
     region: string;
+    isFavorite?: boolean;
 }
 
 const Catalogue: React.FC = ()  =>{
@@ -38,7 +39,7 @@ const Catalogue: React.FC = ()  =>{
   useEffect(() => {
     setAllCountries(countries);
   }, [countries])
-  
+
     const listProd = (input: string) => {
       const filteredData = allCountries.filter((el) => {
         if (input === "") {
@@ -68,7 +69,7 @@ const Catalogue: React.FC = ()  =>{
     <FilterBar listProd={listProd} setCountries={setAllCountries} listProdContinent={listProdContinent}/>
        <div className="countryGridDesign">
         {allCountries.length == 0 ? (
-          <div className="placeholder">No products found</div>
+          <div className="placeholder">No countries found</div>
         ) :
         (allCountries.map((country, index) => (
             <div key={index}>
