@@ -1,6 +1,5 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
-import {bringCountries} from '../../services/apiCalls';
 import { useCountries } from '../../Providers/CountriesProvider';
 import CountryCard from '../../components/CountryCard/CountryCard';
 import './Catalogue.css';
