@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react';
-import {bringCountries} from '../../services/apiCalls'
+import {bringCountries} from '../../services/apiCalls';
+import { useCountries } from '../../Providers/CountriesProvider';
 import CountryCard from '../../components/CountryCard/CountryCard';
 import './Catalogue.css';
 import FilterBar from '../../components/FilterBar/FilterBar';
@@ -24,29 +25,22 @@ interface Country {
     };
     population: number;
     region: string;
-    continents: string[];
 }
 
 const Catalogue: React.FC = ()  =>{
 
-    const [countries, setCountries] = useState<Country[]>([]);
-    const [allCountries, setAllCountries] = useState<Country[]>([]); 
+
+    const [allCountries, setAllCountries] = useState<Country[]>([]);
+    
+    const { countries } = useCountries()
 
 
-
-    useEffect(() => {
-      if (countries.length === 0) {
-        bringCountries()
-          .then((res) => {
-            setCountries(res.data);
-            setAllCountries(res.data);
-          })
-          .catch((error) => console.log(error));
-      }
-    }, []);
-
+  useEffect(() => {
+    setAllCountries(countries);
+  }, [countries])
+  
     const listProd = (input: string) => {
-      const filteredData = countries.filter((el) => {
+      const filteredData = allCountries.filter((el) => {
         if (input === "") {
           return true;
         } else {
@@ -54,7 +48,7 @@ const Catalogue: React.FC = ()  =>{
         }
       });
     
-      setCountries(filteredData);
+      setAllCountries(filteredData);
     };
 
     const listProdContinent = (input: string) => {
@@ -66,17 +60,17 @@ const Catalogue: React.FC = ()  =>{
         }
       });
     
-      setCountries(filteredData);
+      setAllCountries(filteredData);
     };
 
   return (
     <div style = {{padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}> 
-    <FilterBar listProd={listProd} setCountries={setCountries} listProdContinent={listProdContinent}/>
+    <FilterBar listProd={listProd} setCountries={setAllCountries} listProdContinent={listProdContinent}/>
        <div className="countryGridDesign">
-        {countries.length == 0 ? (
+        {allCountries.length == 0 ? (
           <div className="placeholder">No products found</div>
         ) :
-        (countries.map((country, index) => (
+        (allCountries.map((country, index) => (
             <div key={index}>
             <CountryCard value={country}/>
             </div>
