@@ -1,0 +1,29 @@
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.earth {
+  animation: spin 10s linear infinite;
+  transition: all 1s ease-in-out;
+  cursor: pointer;
+}
+
+.start-large {
+  position: fixed;
+  top: 30%;
+  left: 38%;
+  width: 30rem;
+  height: 30rem;
+  transform: translate(-50%, -50%);
+}
+
+.navbar-small {
+  position: fixed;         
+  top: 3rem;                
+  left: 50%;               
+  width: 4rem;
+  height: 4rem;
+  transform: translateX(-50%);
+}           
