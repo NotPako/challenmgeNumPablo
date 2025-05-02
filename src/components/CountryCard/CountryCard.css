@@ -8,12 +8,16 @@
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    font-family: 'Quicksand', serif;
   }
 
   .countryInfoDesign:hover {
     cursor: pointer;    
     transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(39, 255, 67, 0.25);
+    filter: brightness(1.05) saturate(1.1);
+    background-color: rgb(50, 100, 141);
   }
 
   .iconContainer {
@@ -21,7 +25,15 @@
     justify-content: space-between;
     margin-top: 10px;
     padding: 0 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
+
+  .countryInfoDesign:hover .iconContainer {
+    opacity: 1;
+    cursor: pointer;
+  }
+  
   
   .favoriteIcon {
     cursor: pointer;

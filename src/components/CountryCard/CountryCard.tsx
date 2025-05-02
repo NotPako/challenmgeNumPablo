@@ -74,7 +74,7 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
 
   return (
     <div className={`countryInfoDesign`}>
-    <h4>{value.name.common}</h4>
+    <h4 style={{marginTop: '10px'}}>{value.name.common}</h4>
     <img
       className="img-thumbnail"
       src={value.flags.png}
