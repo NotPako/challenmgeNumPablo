@@ -37,7 +37,7 @@ export default function Favourites() {
 
   return (
     <>
-      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}> 
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '5rem', color: 'white' }}> 
         <h1>My Favorites</h1>
         <p>These are the countries you marked as favorites</p>
       </div>
