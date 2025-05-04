@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import './Navbar.css';
+import './NavBar.css';
 import EarthImage from '../../assets/earth.png';
 
 const Navbar: React.FC = () => {
