@@ -8,17 +8,33 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const isLanding = location.pathname === '/';
   const [animateToNavbar, setAnimateToNavbar] = useState(false);
+  const [animateToLanding, setAnimateToLanding] = useState(false);
+  const [initialLoad, setInitialLoad] = useState(true);
+  
+
 
   const handleEarthClick = () => {
     if (isLanding) {
       setAnimateToNavbar(true);
       setTimeout(() => {
         navigate('/Explore');
-      }, 1000); 
+      }, 100);
     } else {
+      setAnimateToLanding(true);
       navigate('/');
     }
   };
+
+  useEffect(() => {
+    if (isLanding && initialLoad) {
+      setAnimateToLanding(true);
+      setInitialLoad(false);
+    } else if (!isLanding) {
+      setAnimateToNavbar(true);
+    }
+  }, [isLanding, initialLoad]);
+
+  
 
   useEffect(() => {
     if (!isLanding) {
@@ -34,11 +50,26 @@ const Navbar: React.FC = () => {
           <img
             src={EarthImage}
             alt="Earth"
-            className={`earth ${isLanding && !animateToNavbar ? 'start-large' : 'navbar-small'}`}
-            onClick={handleEarthClick}
+            className={`earth ${
+              isLanding
+                ? animateToLanding
+                  ? 'start-large'
+                  : 'navbar-small'
+                : 'navbar-small'
+            }`}
+            
           />
+         {!animateToNavbar && (
+          <div
+          className={`exploreTitle ${animateToNavbar ? 'hidden' : ''}`}
+          onClick={handleEarthClick}
+        >
+          <h2>Start exploring
+          </h2>
         </div>
-        <Link to="/Favourites" style={styles.link}>My Favourites</Link>
+        )}
+        </div>
+        <Link to="/Favourites" style={styles.link}>My Favorites</Link>
       </nav>
     </>
   );
