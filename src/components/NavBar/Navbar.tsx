@@ -57,6 +57,7 @@ const Navbar: React.FC = () => {
                   : 'navbar-small'
                 : 'navbar-small'
             }`}
+            onClick={handleEarthClick}
             
           />
          {!animateToNavbar && (
