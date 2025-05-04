@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { FaStar, FaTrashAlt } from 'react-icons/fa';
 import { FavoritesContext } from '../../Providers/FavoritesProvider';
 import { useCountries } from '../../Providers/CountriesProvider';
+import { useNavigate } from 'react-router-dom';
+import { useCountryDetail } from '../../Providers/CountryDetailProvider';
 
 
 interface CountryCardProps {
@@ -33,7 +35,8 @@ interface CountryCardProps {
 const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
 
   const {removeCountry} = useCountries();
-
+  const navigate = useNavigate();
+  const { setSelectedCountry } = useCountryDetail();
   const context = useContext(FavoritesContext);
 
   if (!context) {
@@ -72,20 +75,27 @@ const CountryCard: React.FC<CountryCardProps> = ({ value }) => {
     setIsFavorite((prev) => !prev);  
   };
 
+  const handleClick = () => {
+    setSelectedCountry(value);
+    navigate('/Detail');
+  };
+
   return (
     <div className={`countryInfoDesign`}>
-    <h4 style={{marginTop: '10px'}}>{value.name.common}</h4>
-    <img
-      className="img-thumbnail"
-      src={value.flags.png}
-      alt={`Flag of ${value.name.common}`}
-      width='120'
-      height='80'
-    />
-    <div className='populationAndRegion'>
-      <div>Population: {value.population.toLocaleString()}</div>
-      <div>Region: {value.region}</div>
-    </div>
+      <div onClick={handleClick}>
+        <h4 style={{marginTop: '10px'}}>{value.name.common}</h4>
+        <img
+          className="img-thumbnail"
+          src={value.flags.png}
+          alt={`Flag of ${value.name.common}`}
+          width='120'
+          height='80'
+        />
+        <div className='populationAndRegion'>
+          <div>Population: {value.population.toLocaleString()}</div>
+          <div>Region: {value.region}</div>
+        </div>
+      </div>
     <div className='iconContainer'>
       <div 
         className={`favoriteIcon ${isFavorite ? 'active' : ''}`} 
