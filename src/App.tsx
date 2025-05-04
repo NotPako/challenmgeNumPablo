@@ -7,21 +7,29 @@ import { FavoritesProvider } from './Providers/FavoritesProvider';
 import { CountriesProvider } from './Providers/CountriesProvider';
 import './App.css';
 import Landing from './pages/Landing/Landing';
+import CountryDetail from './pages/CountryDetail/CountryDetail';
+import { CountryDetailProvider } from './Providers/CountryDetailProvider';
+import { AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
   return (
+    <AnimatePresence>
     <FavoritesProvider>
       <CountriesProvider>
+        <CountryDetailProvider>
         <Router>
           <Navbar />
           <Routes>
             <Route path='/' element={<Landing/>}/>
             <Route path="/Explore" element={<Home />} />
             <Route path="/Favourites" element={<Favourites />} />
+            <Route path='/Detail' element={<CountryDetail/>}/>
           </Routes>
         </Router>
+        </CountryDetailProvider>
       </CountriesProvider>
     </FavoritesProvider>
+    </AnimatePresence>
   );
 };
 
